@@ -444,7 +444,7 @@ export default function Blog() {
 
               {/* Instagram */}
               <a
-                href="instagram.com/https%3A%2F%2Fwww.instagram.com%2Fvisitkembata%3Figsh%3DbHBjd2xpeXFvbmpm%26utm_source%3Dqr"
+                href="https://www.instagram.com/visitkembata/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex size-12 items-center justify-center overflow-hidden rounded-xl bg-[#e1306c] text-white transition duration-150 hover:ring-4 hover:ring-[#e1306c]/25 active:ring-0"
@@ -463,7 +463,7 @@ export default function Blog() {
               </a>
               {/* TikTok */}
               <a
-                href="https://www.tiktok.com/@%40visit_kambata"
+                href="https://www.tiktok.com/@visit_kambata"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex size-12 items-center justify-center overflow-hidden rounded-xl bg-black text-white transition duration-150 hover:ring-4 hover:ring-black/25 active:ring-0"
@@ -503,7 +503,7 @@ export default function Blog() {
 
               {/* YouTube */}
               <a
-                href="youtube.com/@Tiktok%20%40visit_kambata"
+                href="https://www.youtube.com/@visitkembata"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex size-12 items-center justify-center overflow-hidden rounded-xl bg-[#FF0000] text-white transition duration-150 hover:ring-4 hover:ring-[#FF0000]/25 active:ring-0"

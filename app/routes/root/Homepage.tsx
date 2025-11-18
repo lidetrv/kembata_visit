@@ -210,7 +210,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
                   ></Link>
                   <div className="relative mx-auto w-full max-w-sm rounded-3xl border border-slate-200 bg-white ring-4 ring-slate-300/25">
                     <div className="flex flex-col gap-4 rounded-xl p-0">
-                      <a href="/blogs" className="group relative">
+                      <Link to="/blog" className="group relative">
                         <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-black/50 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-90">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -235,27 +235,18 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
                           alt="Story Image"
                           className="aspect-16/9 w-full rounded-xl object-cover"
                         />
-                      </a>
+                      </Link>
                       <div className="grow">
                         <div className="mb-1.5 text-sm font-medium text-slate-500 mx-2">
                           {formatDate(createdAt)} ∙ 20 min read
                         </div>
                         <h2 className="mb-2 text-xl font-extrabold text-green-400 font-figtree mx-2">
-                          <a
-                            href="/blogs"
+                          <Link
+                            to="/blog"
                             className="hover:opacity-75 active:opacity-100"
                           >
-                            <Link
-                              to={
-                                path.pathname === "/" ||
-                                path.pathname.startsWith("/home")
-                                  ? `/home/${id}`
-                                  : `/posts/${id}`
-                              }
-                              className="trip-card"
-                            ></Link>
                             {title}
-                          </a>
+                          </Link>
                         </h2>
                         <p className="text-md font-semibold leading-relaxed text-slate-500 mx-2">
                           {titleDescription}
@@ -266,9 +257,6 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
                 </div>
               )
             )}
-          {/* <h1 className="lg:text-4xl text-xl text-center text-purple-500 mx-10 rounded-2xl p-4 bg-purple-200 font-bold my-4">
-            Read more on our blog
-          </h1> */}
         </div>
       </section>
 
@@ -585,7 +573,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
               {/* Instagram */}
               <a
-                href="instagram.com/https%3A%2F%2Fwww.instagram.com%2Fvisitkembata%3Figsh%3DbHBjd2xpeXFvbmpm%26utm_source%3Dqr"
+                href="https://www.instagram.com/visitkembata/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex size-12 items-center justify-center overflow-hidden rounded-xl bg-[#e1306c] text-white transition duration-150 hover:ring-4 hover:ring-[#e1306c]/25 active:ring-0"
@@ -604,7 +592,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
               </a>
               {/* TikTok */}
               <a
-                href="https://www.tiktok.com/@%40visit_kambata"
+                href="https://www.tiktok.com/@visit_kambata"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex size-12 items-center justify-center overflow-hidden rounded-xl bg-black text-white transition duration-150 hover:ring-4 hover:ring-black/25 active:ring-0"
@@ -644,7 +632,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
               {/* YouTube */}
               <a
-                href="youtube.com/@Tiktok%20%40visit_kambata"
+                href="https://www.youtube.com/@visitkembata"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex size-12 items-center justify-center overflow-hidden rounded-xl bg-[#FF0000] text-white transition duration-150 hover:ring-4 hover:ring-[#FF0000]/25 active:ring-0"
