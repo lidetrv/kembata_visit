@@ -32,6 +32,7 @@ export const clientLoader = async () => {
       $id,
       postDetails,
       title,
+      location,
       tags,
       imageUrls,
       tittleDescription,
@@ -51,6 +52,7 @@ export const clientLoader = async () => {
       return {
         id: $id,
         ...details,
+        location,
       };
     }
   ) as any[];
@@ -198,7 +200,15 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           {allPosts
             .slice(0, 4)
             .map(
-              ({ id, title, tags, imageUrls, titleDescription, createdAt }) => (
+              ({
+                id,
+                title,
+                tags,
+                imageUrls,
+                titleDescription,
+                createdAt,
+                location,
+              }) => (
                 <div className="flex justify-center items-center my-5 gap-6 flex-wrap mx-2">
                   <Link
                     to={
@@ -228,7 +238,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
                           </svg>
                         </div>
                         <div className="absolute top-7 right-7 rounded-xl bg-purple-700/50 px-2 py-1 text-xs font-semibold tracking-wider text-white uppercase">
-                          {tags?.[0]}
+                          {location || "NOT AVAILABLE"}
                         </div>
                         <img
                           src={imageUrls?.[0]}

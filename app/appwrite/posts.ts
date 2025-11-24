@@ -69,7 +69,13 @@ import { tablesDB, appwriteConfig } from "./client"
 //     throw error;
 //   }
 // };
-
+export const deletePost = async (postId: string ) =>  {
+  return await tablesDB.deleteRow({
+    databaseId: appwriteConfig.databaseId,
+    tableId: appwriteConfig.tripCollectionId,
+    rowId: postId,
+  });
+};
 export const fetchPosts = async (limit = 8, offset = 0) => {
   try {
     const response = await tablesDB.listRows({
