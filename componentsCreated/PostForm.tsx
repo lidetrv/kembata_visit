@@ -241,9 +241,10 @@ const PostForm = () => {
             <FormItem className="flex w-full flex-col">
               <FormLabel>
                 <span className="font-bold">Location</span>
+                <span className="text-red-700">*</span>
               </FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Enter location (optional)" />
+                <Input {...field} placeholder="Enter location " />
               </FormControl>
               <FormDescription className="text-sm text-gray-100 mt-2.5">
                 Where was this post created? Example: Addis Ababa, Ethiopia.

@@ -59,108 +59,110 @@ const BlogContent = ({ loaderData }: Route.ComponentProps) => {
   };
 
   return (
-    <main className="all-users wrapper">
-      <section className="hidden lg:block my-2">
-        <header className="hidden lg:block fixed top-0 left-0 right-0 w-full bg-white shadow z-50">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              {/* Logo */}
-              <Link to="/" className="flex items-center gap-3">
-                <img
-                  src="/assets/images/Visit-kembata-logo.jpg"
-                  alt="Visit Kembata"
-                  className="w-10 h-10 object-cover rounded"
-                />
-                <span className="text-lg font-bold text-green-700">
-                  VISIT KEMBATA
-                </span>
-              </Link>
+    <>
+      <main className="all-users wrapper">
+        <section className="hidden lg:block my-2">
+          <header className="hidden lg:block fixed top-0 left-0 right-0 w-full bg-white shadow z-50">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                {/* Logo */}
+                <Link to="/" className="flex items-center gap-3">
+                  <img
+                    src="/assets/images/Visit-kembata-logo.jpg"
+                    alt="Visit Kembata"
+                    className="w-10 h-10 object-cover rounded"
+                  />
+                  <span className="text-lg font-bold text-green-700">
+                    VISIT KEMBATA
+                  </span>
+                </Link>
 
-              {/* Center: horizontal nav links (no social icons) */}
-              <nav
-                aria-label="Main navigation"
-                className="flex gap-4 items-center"
-              >
-                {homeSidebarItems.map(({ id, href, icon, label }) => (
-                  <NavLink
-                    key={id}
-                    to={href}
-                    className="inline-flex items-center"
-                  >
-                    {({ isActive }: { isActive: boolean }) => (
-                      <div
-                        className={cn(
-                          "flex items-center gap-2 px-3 py-2 rounded transition",
-                          {
-                            "bg-green-400 !text-white": isActive,
-                            "text-gray-700 hover:bg-green-400": !isActive,
-                          }
-                        )}
-                      >
-                        <img
-                          src={icon}
-                          alt={label}
-                          className={`group-hover:brightness-0 size-5 group-hover:invert w-5 h-5 object-contain ${isActive ? "brightness-0 invert" : "text-green-500"}`}
-                        />
-                        <span className="hidden md:inline-block font-medium">
-                          {label}
-                        </span>
-                      </div>
-                    )}
-                  </NavLink>
-                ))}
-              </nav>
-
-              {/* Right: compact user block */}
-              <div className="flex items-center gap-3">
-                <img
-                  src={(user as any)?.imageUrl ?? "/assets/images/david.webp"}
-                  alt={user?.name ?? "User"}
-                  className="w-9 h-9 rounded-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                <button
-                  onClick={hanldeLogout}
-                  className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                {/* Center: horizontal nav links (no social icons) */}
+                <nav
+                  aria-label="Main navigation"
+                  className="flex gap-4 items-center"
                 >
-                  Log out
-                </button>
+                  {homeSidebarItems.map(({ id, href, icon, label }) => (
+                    <NavLink
+                      key={id}
+                      to={href}
+                      className="inline-flex items-center"
+                    >
+                      {({ isActive }: { isActive: boolean }) => (
+                        <div
+                          className={cn(
+                            "flex items-center gap-2 px-3 py-2 rounded transition",
+                            {
+                              "bg-green-400 !text-white": isActive,
+                              "text-gray-700 hover:bg-green-400": !isActive,
+                            }
+                          )}
+                        >
+                          <img
+                            src={icon}
+                            alt={label}
+                            className={`group-hover:brightness-0 size-5 group-hover:invert w-5 h-5 object-contain ${isActive ? "brightness-0 invert" : "text-green-500"}`}
+                          />
+                          <span className="hidden md:inline-block font-medium">
+                            {label}
+                          </span>
+                        </div>
+                      )}
+                    </NavLink>
+                  ))}
+                </nav>
+
+                {/* Right: compact user block */}
+                <div className="flex items-center gap-3">
+                  <img
+                    src={(user as any)?.imageUrl ?? "/assets/images/david.webp"}
+                    alt={user?.name ?? "User"}
+                    className="w-9 h-9 rounded-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <button
+                    onClick={hanldeLogout}
+                    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                  >
+                    Log out
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </header>
-      </section>
+          </header>
+        </section>
 
-      <section>
-        <article>
-          <h1 className="text-green-500 text-3xl lg:text-5xl font-bold my-10 text-center">
-            Visit Kembata
-          </h1>
-          <p className="font-semibold lg:text-5xl text-purple-400 bg-purple-200 px-10 py-4 max-w-md mx-auto rounded-2xl text-xl text-center">
-            BLOG
-          </p>
-        </article>
-        <div className="trip-grid mb-4 mt-10">
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              id={post.id}
-              name={post.title}
-              location={post.location || "No location"}
-              imageUrl={post.imageUrls[0]}
-              tags={post.tags || []}
-              price={post.tags[0]}
-            />
-          ))}
-        </div>
-        <PagerComponent
-          totalRecordsCount={total}
-          pageSize={8}
-          currentPage={currentPage}
-          click={(args) => handlePageChange(args.currentPage)}
-          cssClass="!mb-4"
-        />
-      </section>
+        <section>
+          <article>
+            <h1 className="text-green-500 text-3xl lg:text-5xl font-bold my-10 text-center">
+              Visit Kembata
+            </h1>
+            <p className="font-semibold lg:text-5xl text-purple-400 bg-purple-200 px-10 py-4 max-w-md mx-auto rounded-2xl text-xl text-center">
+              BLOG
+            </p>
+          </article>
+          <div className="trip-grid mb-4 mt-10">
+            {posts.map((post) => (
+              <PostCard
+                key={post.id}
+                id={post.id}
+                name={post.title}
+                location={post.location || "No location"}
+                imageUrl={post.imageUrls[0]}
+                tags={post.tags || []}
+                price={post.tags[0]}
+              />
+            ))}
+          </div>
+          <PagerComponent
+            totalRecordsCount={total}
+            pageSize={8}
+            currentPage={currentPage}
+            click={(args) => handlePageChange(args.currentPage)}
+            cssClass="!mb-4"
+          />
+        </section>
+      </main>
       <footer className="bg-gray-300 text-white py-10 text-center">
         <div className="relative mx-auto w-full max-w-lg rounded-xl p-4 shadow-sm backdrop-blur-xs">
           <div className="rounded-lg p-4">
@@ -293,7 +295,7 @@ const BlogContent = ({ loaderData }: Route.ComponentProps) => {
           © {new Date().getFullYear()} Visit Kembata. All rights reserved.
         </p>
       </footer>
-    </main>
+    </>
   );
 };
 
