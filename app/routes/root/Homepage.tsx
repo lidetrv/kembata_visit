@@ -20,9 +20,15 @@ import type { Route } from "./+types/Homepage";
 import Carousel from "./Carousel";
 //flow bite imports
 import "flowbite";
-import { useEffect } from "react"; // ⭐ add this here (new)
-import { initFlowbite } from "flowbite"; // ⭐ add this here (new)
+import { useEffect } from "react";
+import { initFlowbite } from "flowbite";
 import TestimonialCarousel from "./TestimonialCarousel";
+import {
+  ChipDirective,
+  ChipListComponent,
+  ChipsDirective,
+} from "@syncfusion/ej2-react-buttons";
+import { getFirstWord } from "~/lib/utils";
 
 export const clientLoader = async () => {
   const [user, posts] = await Promise.all([getUser(), getAllPosts(3, 0)]);
@@ -51,8 +57,11 @@ export const clientLoader = async () => {
 
       return {
         id: $id,
-        ...details,
+        title,
         location,
+        tags,
+        imageUrls,
+        ...details,
       };
     }
   ) as any[];
@@ -60,8 +69,6 @@ export const clientLoader = async () => {
 };
 
 const tourCarouselImages = [
-  // FIX 1: Path corrected to include 'new/' folder
-  // FIX 2: Alt text simplified to only use the image name
   { src: "/assets/icons/Hambericho777.jpg", alt: "h2.jpg" },
   { src: "/assets/images/photo/sarobira.jpg", alt: "sarobira.jpg" },
   { src: "/assets/images/Ham1.jpg", alt: "h4.jpg" },
@@ -72,13 +79,50 @@ const tourCarouselImages = [
   { src: "/assets/images/culturalfood4.jpg", alt: "h8.jpg" },
   {
     src: "/assets/images/photo/AJORA SINGLE PHOTO.jpg",
-
     alt: "ajora single photo.jpg",
   },
   { src: "/assets/images/photo/Aziga.jpg", alt: "Aziga.jpg" },
   { src: "/assets/images/photo/Doje waterfall.jpg", alt: "Doje waterfall.jpg" },
   { src: "/assets/images/photo/AYIB.jpg", alt: "AYIB.jpg" },
 ];
+
+// HomePostCard component specifically for homepage - UPDATED
+const HomePostCard = ({ id, name, tags, location, price, imageUrl }: any) => {
+  return (
+    <div className="trip-card">
+      {/* Image wrapped in Link that goes to main blog page */}
+      <Link to="/blog">
+        <img src={imageUrl} alt={name} />
+      </Link>
+      <article>
+        {/* Title also wrapped in Link that goes to main blog page */}
+        <h2>
+          <Link to="/blog">{name}</Link>
+        </h2>
+        <figure>
+          <img src="/assets/icons/location-mark.svg" className="size-4" />
+          <figcaption>{location}</figcaption>
+        </figure>
+      </article>
+      <div className="mt-5 pl-[18px] pr-3.5 pb-5">
+        <ChipListComponent id="travel-chip">
+          <ChipsDirective>
+            {tags.map((tag: string, index: number) => (
+              <ChipDirective
+                key={index}
+                text={getFirstWord(tag)}
+                cssClass={cn(
+                  `!text-base !font-medium !px-4 ${index === 0 ? "!bg-pink-50 !text-pink-500" : index === 1 ? "!bg-primary-50 !text-primary-500" : index === 2 ? "!bg-success-50 !text-success-500" : "!bg-amber-50 !text-amber-500"}`
+                )}
+              />
+            ))}
+          </ChipsDirective>
+        </ChipListComponent>
+      </div>
+      <article className="tripCard-pill">{price}</article>
+    </div>
+  );
+};
 
 export default function HomePage({ loaderData }: Route.ComponentProps) {
   const user = loaderData.user as User | null;
@@ -90,13 +134,13 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
     initFlowbite();
   }, []);
 
-  // const user = useLoaderData();
   const navigate = useNavigate();
   const hanldeLogout = () => {
     navigate("/sign-in");
   };
 
   const path = useLocation();
+
   return (
     <div className="font-sans text-gray-800 overflow-x-hidden">
       <section className="hidden lg:block my-2">
@@ -169,6 +213,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           </div>
         </header>
       </section>
+
       <section>
         <div className="flex items-center justify-start mx-8 font-bold">
           <article>
@@ -176,101 +221,32 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
               Visit Kembata
             </h4>
           </article>
-
-          <div></div>
         </div>
       </section>
 
       {/* 🏞 3D Image Carousel Section */}
       <section className="w-full bg-gray-50 py-10">
-        {/* <h3 className="text-3xl font-bold text-center mb-10 bg-green-200 lg:mx-37 text-green-500 p-4 rounded-2xl">
-          Popular Destinations
-        </h3> */}
         <Carousel images={tourCarouselImages} />
       </section>
 
-      {/* Hero Section */}
-
-      {/* Destinations Grid */}
-      {/* <section className="py-16 bg-gray-50 mx-4">
-        <div></div>
-      </section> */}
-      <section>
-        <div className="flex justify-center items-center my-1 gap-2 flex-wrap mx-2">
-          {allPosts
-            .slice(0, 4)
-            .map(
-              ({
-                id,
-                title,
-                tags,
-                imageUrls,
-                titleDescription,
-                createdAt,
-                location,
-              }) => (
-                <div className="flex justify-center items-center my-5 gap-6 flex-wrap mx-2">
-                  <Link
-                    to={
-                      path.pathname === "/" || path.pathname.startsWith("/home")
-                        ? `/home/${id}`
-                        : `/posts/${id}`
-                    }
-                    className="trip-card"
-                  ></Link>
-                  <div className="relative mx-auto w-full max-w-sm rounded-3xl border border-slate-200 bg-white ring-4 ring-slate-300/25">
-                    <div className="flex flex-col gap-4 rounded-xl p-0">
-                      <Link to="/blog" className="group relative">
-                        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-black/50 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-90">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="hi-outline hi-arrow-up-right inline-block size-6 transition duration-200 group-hover:scale-150 group-active:scale-100"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                            />
-                          </svg>
-                        </div>
-                        <div className="absolute top-7 right-7 rounded-xl bg-purple-700/50 px-2 py-1 text-xs font-semibold tracking-wider text-white uppercase">
-                          {location || "UNAVAILBLE"}
-                        </div>
-                        <img
-                          src={imageUrls?.[0]}
-                          alt="Story Image"
-                          className="aspect-16/9 w-full rounded-xl object-cover"
-                        />
-                      </Link>
-                      <div className="grow">
-                        <div className="mb-1.5 text-sm font-medium text-slate-500 mx-2">
-                          {formatDate(createdAt)} ∙ 20 min read
-                        </div>
-                        <h2 className="mb-2 text-xl font-extrabold text-green-400 font-figtree mx-2">
-                          <Link
-                            to="/blog"
-                            className="hover:opacity-75 active:opacity-100"
-                          >
-                            {title}
-                          </Link>
-                        </h2>
-                        <p className="text-md font-semibold leading-relaxed text-slate-500 mx-2">
-                          {titleDescription}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
+      {/* Updated Posts Section with HomePostCard (not PostCard) */}
+      <section className="py-10">
+        <div className="trip-grid mb-4 mt-10 mx-4">
+          {allPosts.slice(0, 4).map((post: any) => (
+            <HomePostCard
+              key={post.id}
+              id={post.id}
+              name={post.title}
+              location={post.location}
+              imageUrl={post.imageUrls?.[0]}
+              tags={post.tags || []}
+              price={post.tags?.[0] || ""}
+            />
+          ))}
         </div>
       </section>
 
-      {/* About Section will be edited */}
+      {/* About Section */}
       <section className="py-20 px-6 md:px-20 bg-white text-center">
         <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 py-16 lg:px-8 lg:py-32">
           <div className="text-center">
@@ -285,6 +261,20 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           <div className="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-lg bg-white p-6 ring-8 ring-gray-900/5">
               <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-blue-100">
+                {/* <svg
+          className="inline-block size-6 text-blue-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg> */}
                 <svg
                   className="inline-block size-6 text-blue-600"
                   fill="none"
