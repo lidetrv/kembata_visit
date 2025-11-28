@@ -238,7 +238,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
                           </svg>
                         </div>
                         <div className="absolute top-7 right-7 rounded-xl bg-purple-700/50 px-2 py-1 text-xs font-semibold tracking-wider text-white uppercase">
-                          {location || "NOT AVAILABLE"}
+                          {location || "UNAVAILBLE"}
                         </div>
                         <img
                           src={imageUrls?.[0]}
