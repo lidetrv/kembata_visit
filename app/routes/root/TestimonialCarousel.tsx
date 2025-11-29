@@ -1,6 +1,6 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import TestimonialCard from "./TestimonialCard";
+
 interface Testimonial {
   text: string;
   avatar: string;
@@ -34,48 +34,90 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialCarousel() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) =>
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  // Auto slide every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div
-      id="testimonial-carousel"
-      className="relative w-full"
-      data-carousel="slide"
-    >
-      {/* Carousel wrapper */}
-      <div className="relative h-96 overflow-hidden rounded-base">
-        {testimonials.map((t, index) => (
-          <div
-            key={index}
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item
-          >
-            <TestimonialCard testimonial={t} />
-          </div>
-        ))}
+    <div className="w-full max-w-6xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          What Our Visitors Say
+        </h2>
+        <p className="text-lg text-gray-600">
+          Discover experiences from travelers like you
+        </p>
       </div>
 
-      {/* Slider indicators */}
-      <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
-        {testimonials.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            className="w-3 h-3 rounded-base"
-            aria-current={index === 0 ? "true" : "false"}
-            aria-label={`Slide ${index + 1}`}
-            data-carousel-slide-to={index}
-          ></button>
-        ))}
-      </div>
+      <div className="relative">
+        {/* Carousel wrapper */}
+        <div className="relative h-80 overflow-hidden rounded-lg">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className={`absolute top-0 left-0 w-full h-full transition-transform duration-700 ease-in-out ${
+                index === currentSlide
+                  ? "translate-x-0"
+                  : index < currentSlide
+                    ? "-translate-x-full"
+                    : "translate-x-full"
+              }`}
+            >
+              <div className="flex justify-center items-center h-full">
+                <TestimonialCard testimonial={testimonial} />
+              </div>
+            </div>
+          ))}
+        </div>
 
-      {/* Slider controls */}
-      <button
-        type="button"
-        className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
-        data-carousel-prev
-      >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-base bg-white/30 group-hover:bg-white/50">
+        {/* Slider indicators */}
+        <div className="absolute z-30 flex -translate-x-1/2 bottom-4 left-1/2 space-x-3">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              className={`w-3 h-3 rounded-full transition-colors ${
+                index === currentSlide
+                  ? "bg-blue-600"
+                  : "bg-gray-300 hover:bg-gray-400"
+              }`}
+              aria-current={index === currentSlide ? "true" : "false"}
+              aria-label={`Slide ${index + 1}`}
+              onClick={() => goToSlide(index)}
+            ></button>
+          ))}
+        </div>
+
+        {/* Slider controls */}
+        <button
+          type="button"
+          className="absolute top-1/2 left-4 z-30 flex items-center justify-center w-10 h-10 bg-white/80 rounded-full shadow-lg hover:bg-white transition-colors -translate-y-1/2"
+          onClick={prevSlide}
+        >
           <svg
-            className="w-5 h-5 text-white rtl:rotate-180"
+            className="w-5 h-5 text-gray-800"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -88,16 +130,14 @@ export default function TestimonialCarousel() {
               d="m15 19-7-7 7-7"
             />
           </svg>
-        </span>
-      </button>
-      <button
-        type="button"
-        className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
-        data-carousel-next
-      >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-base bg-white/30 group-hover:bg-white/50">
+        </button>
+        <button
+          type="button"
+          className="absolute top-1/2 right-4 z-30 flex items-center justify-center w-10 h-10 bg-white/80 rounded-full shadow-lg hover:bg-white transition-colors -translate-y-1/2"
+          onClick={nextSlide}
+        >
           <svg
-            className="w-5 h-5 text-white rtl:rotate-180"
+            className="w-5 h-5 text-gray-800"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -110,8 +150,8 @@ export default function TestimonialCarousel() {
               d="m9 5 7 7-7 7"
             />
           </svg>
-        </span>
-      </button>
+        </button>
+      </div>
     </div>
   );
 }
