@@ -793,153 +793,144 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {/* Hambaricho Mountain */}
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="assets/icons/Hambericho777.jpg"
-                alt="Hambaricho Mountain"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/icons/Hambericho777.jpg"
+                  alt="Hambaricho Mountain"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Hambaricho Mountain
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A sacred mountain and symbol of unity for the Kembata people,
                   offering beautiful cultural heritage and stunning views.
                 </p>
               </div>
             </div>
-            {/* assets/images/kocho.jpg */}
+
             {/* Filwuha Hot Spring */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/gemesha.jpg"
-                alt="Filwuha Hot Spring"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/gemesha.jpg"
+                  alt="Filwuha Hot Spring"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Filwuha Hot Spring
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A natural hot spring with warm therapeutic waters, perfect for
                   relaxation and wellness.
                 </p>
               </div>
             </div>
-            {/* Ajora Waterfalls & Caves */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/sodicho cave.jpg"
-                alt="Sodicho Cave"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+
+            {/* Sodicho Cave */}
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/sodicho cave.jpg"
+                  alt="Sodicho Cave"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Sodicho Cave
                 </h3>
                 <div className="flex items-center gap-1 text-sm text-gray-600 mb-4"></div>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800 mb-3">
                   An ancient cave rich with mystery, tradition, and historical
                   significance. A must visit for cultural explorers.
                 </p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                  className="lucide lucide-map-pin inline-block size-4 text-green-500"
-                >
-                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>Kembata Zone, Ethiopia</span>
+                <div className="flex items-center gap-2 text-gray-600 md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="lucide lucide-map-pin inline-block size-4 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600"
+                  >
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <span>Kembata Zone, Ethiopia</span>
+                </div>
               </div>
             </div>
-            {/* <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/ajora3.jpg"
-                alt="Ajora Waterfalls"
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3">
-                  Ajora Waterfalls & Caves
-                </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  A breathtaking natural wonder featuring waterfalls and ancient
-                  caves — ideal for explorers.
-                </p>
-              </div>
-            </div> */}
+
             {/* Aziga Waterfall */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/Aziga Waterfall.jpg"
-                alt="Aziga Waterfall"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/Aziga Waterfall.jpg"
+                  alt="Aziga Waterfall"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 ">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Aziga Waterfall
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   Located in Angacha City, just 32km from Durame — Aziga blends
                   refreshing nature and peaceful scenery in the heart of
                   Kembata.
                 </p>
               </div>
             </div>
+
             {/* Sana Waterfall */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/sanawaterfall.jpg"
-                alt="Sana Waterfall"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/sanawaterfall.jpg"
+                  alt="Sana Waterfall"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Sana Waterfall
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A charming waterfall surrounded by lush greenery, offering a
                   calm and refreshing atmosphere for nature lovers.
                 </p>
               </div>
             </div>
-            {/* Sodicho Cave */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/sodicho cave.jpg"
-                alt="Sodicho Cave"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
-                  Sodicho Cave
-                </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  An ancient cave rich with mystery, tradition, and historical
-                  significance. A must visit for cultural explorers.
-                </p>
-              </div>
-            </div>
+
             {/* Sarobira Landscape */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/sarobira.jpg"
-                alt="Sarobira Landscape"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/sarobira.jpg"
+                  alt="Sarobira Landscape"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Sarobira Landscape
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A wide open scenic landscape with natural formations and
                   panoramic views — perfect for photography and meditation.
                 </p>
@@ -957,17 +948,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {/* Kocho */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/kocho.jpg"
-                alt="Kocho"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/kocho.jpg"
+                  alt="Kocho"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Kocho
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A traditional bread made from the Enset plant. Often served
                   with meat, milk, or vegetables — a cultural symbol of unity
                   and hospitality.
@@ -976,17 +970,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Bulla */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/bulla.jpg"
-                alt="Bulla"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/bulla.jpg"
+                  alt="Bulla"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Bulla
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A smooth, highly digestible porridge made from the purified
                   starch extract of the Enset plant. It provides a quick and
                   powerful source of sustained energy and vital minerals (like
@@ -996,17 +993,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Hankalo */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/hanakalo.jpg"
-                alt="Hankalo"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/hanakalo.jpg"
+                  alt="Hankalo"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Hankalo
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   Roasted and crushed barley (or wheat) mixed with traditional
                   spices and butter. This deep-flavor dish is rich in fiber (if
                   using barley) and provides B vitamins and a warm, nourishing
@@ -1016,17 +1016,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Atakana */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/culturalfood7.jpg" // Changed image src
-                alt="Atakana"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/culturalfood7.jpg"
+                  alt="Atakana"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Atakana
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A special celebratory meal traditionally prepared during major
                   holidays on a flat earthen oven. It is usually made with rich,
                   varied ingredients that offer a high content of protein,
@@ -1036,17 +1039,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Godere (Gebiza) */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/godere.jpg" // Changed image src
-                alt="Godere (Gebiza)"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/godere.jpg"
+                  alt="Godere (Gebiza)"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   (Gebiza) Godere
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A traditional staple food item, often derived from ground
                   cereals. It contributes a strong base of sustained caloric
                   energy and important dietary fiber to the daily Kembata diet.
@@ -1055,17 +1061,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Mucho */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/mucho.jpg" // Changed image src
-                alt="Mucho"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/mucho.jpg"
+                  alt="Mucho"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Mucho
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A dense, highly filling Kembata specialty food, often related
                   to the Kocho/Bula family. It is valued for its contribution to
                   food security and its dense concentration of carbohydrates and
@@ -1075,17 +1084,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Kitifo */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/kitifo.jpg" // Changed image src
-                alt="Kitifo"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/kitifo.jpg"
+                  alt="Kitifo"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Kitifo
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   A traditional dish of minced raw beef mixed with *mitmita*
                   (chili) and /niter kibbeh/ (spiced butter). It is an excellent
                   source of high-quality complete protein, essential Iron, and
@@ -1095,17 +1107,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Ayib (Cheese) */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/AYIB.jpg"
-                alt="Ayib (Ethiopian Cottage Cheese)"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/AYIB.jpg"
+                  alt="Ayib (Ethiopian Cottage Cheese)"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Ayib (Cottage Cheese)
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   Ethiopian fresh cottage cheese, often served with spicy meat
                   dishes or Kocho. It is a vital and easily digestible protein
                   supplement that provides a rich source of calcium for bone
@@ -1113,24 +1128,6 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                 </p>
               </div>
             </div>
-
-            {/* Cheka (Traditional Drink) */}
-            {/* <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="https://via.placeholder.com/400x250?text=Cheka"
-                alt="Cheka"
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3">
-                  Cheka (Traditional Drink)
-                </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  A traditional fermented drink shared in community gatherings.
-                  Known for connecting people, culture, and conversation.
-                </p>
-              </div>
-            </div> */}
           </div>
         </div>
       </section>
@@ -1140,17 +1137,20 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
           <h2 className="text-4xl font-bold text-center mb-10">Events</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/festival.jpg"
-                alt="Masala Festival"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/festival.jpg"
+                  alt="Masala Festival"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Masala Festival
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   This is the most prominent annual festival for the Kembata
                   people, often celebrated with events like the "Masala Week"
                   and other related activities like the "Miss Kambata"
@@ -1159,18 +1159,22 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                 </p>
               </div>
             </div>
+
             {/* miss masala */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/missmasala1.jpg"
-                alt="Miss Masala"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/missmasala1.jpg"
+                  alt="Miss Masala"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Miss Masala
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   Miss Masala is a dynamic competition where beautiful and
                   talented women come together to showcase their grace,
                   strength, and individuality. This event not only recognizes
@@ -1179,18 +1183,22 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                 </p>
               </div>
             </div>
+
             {/* Masala Great Run */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/masala run.jpg"
-                alt="Masala Great Run"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/masala run.jpg"
+                  alt="Masala Great Run"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Masala Great Run
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   The Masala Great Run is an exhilarating event that brings
                   people together to promote unity and celebrate the vibrant
                   culture of the Kembata community. Participants of all ages
@@ -1199,18 +1207,22 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                 </p>
               </div>
             </div>
+
             {/* tour events */}
-            <div className="bg-white shadow-lg z-10 rounded-lg overflow-hidden">
-              <img
-                src="assets/images/photo/tourevent.jpg"
-                alt="Tour Event"
-                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
-              />
+            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+              <div className="relative overflow-hidden">
+                <img
+                  src="assets/images/photo/tourevent.jpg"
+                  alt="Tour Event"
+                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500">
+                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
                   Masala Tour
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                   Join us for an immersive Tour Event that invites you to
                   discover the breathtaking beauty and rich culture of the
                   Kembata region. This engaging experience will take you through
@@ -1222,7 +1234,6 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
           </div>
         </div>
       </section>
-
       <footer className="bg-gray-300 text-white py-10 text-center">
         <div className="relative mx-auto w-full max-w-lg rounded-xl p-4 shadow-sm backdrop-blur-xs">
           <div className="rounded-lg p-4">
