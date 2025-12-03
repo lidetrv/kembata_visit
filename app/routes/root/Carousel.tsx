@@ -133,7 +133,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
     let opacity = 0;
     let filter = "grayscale(100%)";
     let pointerEvents: "none" | "auto" = "none";
-// 3D positioning logic
+    // 3D positioning logic
     if (offset === 0) {
       // Center Card (front and center)
       transform = "scale(1.1) translateZ(0)";
@@ -184,7 +184,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center pt-20 pb-16 bg-gray-50">
+    <div className="flex flex-col items-center justify-center pt-5 pb-16 bg-gray-50">
       {/* --- Carousel Container (The Viewport) --- */}
       <div
         className="carousel-container relative w-full max-w-[1200px] h-[450px]"

@@ -213,11 +213,12 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           </div>
         </header>
       </section>
-
-      <section>
-        <div className="flex items-center justify-start mx-8 font-bold">
+      <section className="pt-4">
+        {" "}
+        {/* Only top padding */}
+        <div className="flex items-center justify-center mx-8">
           <article>
-            <h4 className="text-green-500 text-3xl lg:text-5xl font-bold my-10 text-center">
+            <h4 className="text-green-500 text-3xl lg:text-5xl font-bold my-2 lg:my-4 text-center flex items-center justify-center">
               Visit Kembata
             </h4>
           </article>
