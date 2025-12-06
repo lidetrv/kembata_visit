@@ -29,11 +29,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 const FrontPostDetail = ({ loaderData }: Route.ComponentProps) => {
-  // const postData = parseTripData(loaderData?.post)
-  // const { postDetails } = postData || {}
-  //   // const postData = parseTripData(loaderData?.post);
   const { post } = loaderData;
-  // console.log('post', post);
 
   return (
     <main className="travel-detail wrapper">

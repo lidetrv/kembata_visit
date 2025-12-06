@@ -1,0 +1,114 @@
+[1mdiff --git a/app/routes/root/FrontPostDetail.tsx b/app/routes/root/FrontPostDetail.tsx[m
+[1mindex 2eec555..7815c84 100644[m
+[1m--- a/app/routes/root/FrontPostDetail.tsx[m
+[1m+++ b/app/routes/root/FrontPostDetail.tsx[m
+[36m@@ -29,11 +29,7 @@[m [mexport const loader = async ({ params }: LoaderFunctionArgs) => {[m
+ };[m
+ [m
+ const FrontPostDetail = ({ loaderData }: Route.ComponentProps) => {[m
+[31m-  // const postData = parseTripData(loaderData?.post)[m
+[31m-  // const { postDetails } = postData || {}[m
+[31m-  //   // const postData = parseTripData(loaderData?.post);[m
+   const { post } = loaderData;[m
+[31m-  // console.log('post', post);[m
+ [m
+   return ([m
+     <main className="travel-detail wrapper">[m
+[1mdiff --git a/componentsCreated/MarkdownRenderer.tsx b/componentsCreated/MarkdownRenderer.tsx[m
+[1mindex 48f9bb0..3605492 100644[m
+[1m--- a/componentsCreated/MarkdownRenderer.tsx[m
+[1m+++ b/componentsCreated/MarkdownRenderer.tsx[m
+[36m@@ -21,7 +21,6 @@[m
+ //   );[m
+ // }[m
+ [m
+[31m-[m
+ import React from "react";[m
+ import ReactMarkdown from "react-markdown";[m
+ import remarkGfm from "remark-gfm";[m
+[36m@@ -66,39 +65,52 @@[m [mexport default function MarkdownRenderer({ content }: { content: string }) {[m
+           ),[m
+ [m
+           // Images[m
+[32m+[m[32m          // Images - FIXED VERSION[m
+           img: ({ src, alt }) => ([m
+             <img[m
+               src={src || ""}[m
+               alt={alt || ""}[m
+[31m-              className="my-4 rounded-xl border border-gray-200 shadow-sm max-w-full transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"[m
+[32m+[m[32m              className="my-4 rounded-xl border border-gray-200 shadow-sm max-w-full h-auto max-h-96 object-contain transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"[m
+             />[m
+           ),[m
+ [m
+           // Unordered lists[m
+           ul: ({ children }) => ([m
+[31m-            <ul className="list-disc list-inside mb-4 ml-4 space-y-1">{children}</ul>[m
+[32m+[m[32m            <ul className="list-disc list-inside mb-4 ml-4 space-y-1">[m
+[32m+[m[32m              {children}[m
+[32m+[m[32m            </ul>[m
+           ),[m
+ [m
+           // Ordered lists[m
+           ol: ({ children }) => ([m
+[31m-            <ol className="list-decimal list-inside mb-4 ml-4 space-y-1">{children}</ol>[m
+[32m+[m[32m            <ol className="list-decimal list-inside mb-4 ml-4 space-y-1">[m
+[32m+[m[32m              {children}[m
+[32m+[m[32m            </ol>[m
+           ),[m
+ [m
+           // List items[m
+           li: (props: any) => {[m
+[31m-              const { children, checked } = props as { children: React.ReactNode; checked?: boolean | null };[m
+[32m+[m[32m            const { children, checked } = props as {[m
+[32m+[m[32m              children: React.ReactNode;[m
+[32m+[m[32m              checked?: boolean | null;[m
+[32m+[m[32m            };[m
+ [m
+[31m-              if (checked !== null && checked !== undefined) {[m
+[31m-                return ([m
+[32m+[m[32m            if (checked !== null && checked !== undefined) {[m
+[32m+[m[32m              return ([m
+                 <li className="flex items-center ml-2 space-x-2">[m
+[31m-                  <input type="checkbox" checked={checked} readOnly className="w-4 h-4 accent-success-500" />[m
+[31m-                    <span>{children}</span>[m
+[32m+[m[32m                  <input[m
+[32m+[m[32m                    type="checkbox"[m
+[32m+[m[32m                    checked={checked}[m
+[32m+[m[32m                    readOnly[m
+[32m+[m[32m                    className="w-4 h-4 accent-success-500"[m
+[32m+[m[32m                  />[m
+[32m+[m[32m                  <span>{children}</span>[m
+                 </li>[m
+[31m-    );[m
+[31m-  }[m
+[32m+[m[32m              );[m
+[32m+[m[32m            }[m
+ [m
+[31m-  return <li className="ml-2">{children}</li>;[m
+[31m-},[m
+[32m+[m[32m            return <li className="ml-2">{children}</li>;[m
+[32m+[m[32m          },[m
+ [m
+           // Links[m
+           a: ({ href, children }) => ([m
+[36m@@ -135,11 +147,17 @@[m [mexport default function MarkdownRenderer({ content }: { content: string }) {[m
+             </div>[m
+           ),[m
+           thead: ({ children }) => ([m
+[31m-            <thead className="bg-gray-200 text-gray-900 font-semibold">{children}</thead>[m
+[32m+[m[32m            <thead className="bg-gray-200 text-gray-900 font-semibold">[m
+[32m+[m[32m              {children}[m
+[32m+[m[32m            </thead>[m
+[32m+[m[32m          ),[m
+[32m+[m[32m          tbody: ({ children }) => ([m
+[32m+[m[32m            <tbody className="divide-y divide-gray-200">{children}</tbody>[m
+           ),[m
+[31m-          tbody: ({ children }) => <tbody className="divide-y divide-gray-200">{children}</tbody>,[m
+           tr: ({ children }) => ([m
+[31m-            <tr className="hover:bg-gray-50 transition-colors duration-150">{children}</tr>[m
+[32m+[m[32m            <tr className="hover:bg-gray-50 transition-colors duration-150">[m
+[32m+[m[32m              {children}[m
+[32m+[m[32m            </tr>[m
+           ),[m
+           th: ({ children }) => ([m
+             <th className="px-4 py-2 border-b border-gray-300">{children}</th>[m

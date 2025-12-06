@@ -21,7 +21,6 @@
 //   );
 // }
 
-
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -66,39 +65,53 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           ),
 
           // Images
+          // Images - FIXED VERSION
           img: ({ src, alt }) => (
             <img
               src={src || ""}
               alt={alt || ""}
-              className="my-4 rounded-xl border border-gray-200 shadow-sm max-w-full transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+              className="my-4 rounded-xl border border-gray-200 shadow-sm max-w-full h-auto max-h-96 object-contain transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+              loading="lazy"
             />
           ),
 
           // Unordered lists
           ul: ({ children }) => (
-            <ul className="list-disc list-inside mb-4 ml-4 space-y-1">{children}</ul>
+            <ul className="list-disc list-inside mb-4 ml-4 space-y-1">
+              {children}
+            </ul>
           ),
 
           // Ordered lists
           ol: ({ children }) => (
-            <ol className="list-decimal list-inside mb-4 ml-4 space-y-1">{children}</ol>
+            <ol className="list-decimal list-inside mb-4 ml-4 space-y-1">
+              {children}
+            </ol>
           ),
 
           // List items
           li: (props: any) => {
-              const { children, checked } = props as { children: React.ReactNode; checked?: boolean | null };
+            const { children, checked } = props as {
+              children: React.ReactNode;
+              checked?: boolean | null;
+            };
 
-              if (checked !== null && checked !== undefined) {
-                return (
+            if (checked !== null && checked !== undefined) {
+              return (
                 <li className="flex items-center ml-2 space-x-2">
-                  <input type="checkbox" checked={checked} readOnly className="w-4 h-4 accent-success-500" />
-                    <span>{children}</span>
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    readOnly
+                    className="w-4 h-4 accent-success-500"
+                  />
+                  <span>{children}</span>
                 </li>
-    );
-  }
+              );
+            }
 
-  return <li className="ml-2">{children}</li>;
-},
+            return <li className="ml-2">{children}</li>;
+          },
 
           // Links
           a: ({ href, children }) => (
@@ -135,11 +148,17 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-gray-200 text-gray-900 font-semibold">{children}</thead>
+            <thead className="bg-gray-200 text-gray-900 font-semibold">
+              {children}
+            </thead>
           ),
-          tbody: ({ children }) => <tbody className="divide-y divide-gray-200">{children}</tbody>,
+          tbody: ({ children }) => (
+            <tbody className="divide-y divide-gray-200">{children}</tbody>
+          ),
           tr: ({ children }) => (
-            <tr className="hover:bg-gray-50 transition-colors duration-150">{children}</tr>
+            <tr className="hover:bg-gray-50 transition-colors duration-150">
+              {children}
+            </tr>
           ),
           th: ({ children }) => (
             <th className="px-4 py-2 border-b border-gray-300">{children}</th>
