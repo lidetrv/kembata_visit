@@ -69,7 +69,7 @@ export const clientLoader = async () => {
 };
 
 const tourCarouselImages = [
-  { src: "/assets/icons/Hambericho777.jpg", alt: "h2.jpg" },
+  { src: "/assets/icons/Hambericho777.jpg", alt: "h2.jpg", title: "Explore" },
   { src: "/assets/images/photo/sarobira.jpg", alt: "sarobira.jpg" },
   { src: "/assets/images/Ham1.jpg", alt: "h4.jpg" },
   { src: "/assets/images/photo/hanakalo.jpg", alt: "hanakalo.jpg" },

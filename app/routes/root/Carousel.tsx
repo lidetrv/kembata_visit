@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Using react-i
 
 // Define the type for a carousel item
 interface CarouselItem {
+  title: any;
   src: string;
   alt: string;
 }
@@ -35,6 +36,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
     },
     [isAnimating, CARD_LENGTH]
   );
+
   // Add auto-rotation effect
   useEffect(() => {
     if (CARD_LENGTH === 0) return;
@@ -47,7 +49,6 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
 
     return () => clearInterval(interval);
   }, [currentIndex, isAnimating, updateCarousel, CARD_LENGTH]);
-
   // Click handler for navigation arrows
   const handleNavigation = useCallback(
     (direction: "prev" | "next") => {
@@ -228,6 +229,11 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
                 alt={image.alt}
                 className="w-full h-full object-cover"
               />
+              {image.title && (
+                <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 text-center">
+                  <h3 className="text-lg font-semibold">{image.title}</h3>
+                </div>
+              )}
             </div>
           ))}
         </div>
