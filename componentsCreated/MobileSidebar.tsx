@@ -12,12 +12,12 @@ const MobileSidebar = ({ isAdmin = false }: { isAdmin?: boolean }) => {
   return (
     <div className="mobile-sidebar wrapper">
       {/* Fixed mobile header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white flex justify-between items-center px-4 py-3 border-b border-light-100">
-        <Link to="/" className="logo flex items-center gap-2">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white flex justify-between items-center px-1 py-1 border-b border-light-100 h-18">
+        <Link to="/" className="logo flex items-center gap-1">
           <img
             src="/assets/images/Visit-kembata-logo.jpg"
             alt="Visit Kembata Logo"
-            className="size-[40px]"
+            className="size-7"
           />
           <h1 className="text-base md:text-2xl font-bold text-dark-100">
             Visit Kembata
@@ -29,8 +29,8 @@ const MobileSidebar = ({ isAdmin = false }: { isAdmin?: boolean }) => {
         </button>
       </header>
 
-      {/* Add spacing for fixed header */}
-      <div className="pt-16"></div>
+      {/* Add spacing for fixed header
+      <div className="pt-16"></div> */}
 
       {/* Sidebar component */}
       <SidebarComponent
