@@ -70,13 +70,13 @@ export const clientLoader = async () => {
 
 const tourCarouselImages = [
   { src: "/assets/icons/Hambericho777.jpg", alt: "h2.jpg", title: "Explore" },
-  { src: "/assets/images/photo/sarobira.jpg", alt: "sarobira.jpg" },
-  { src: "/assets/images/Ham1.jpg", alt: "h4.jpg" },
-  { src: "/assets/images/photo/hanakalo.jpg", alt: "hanakalo.jpg" },
-  { src: "/assets/images/abiy.jpg", alt: "h6.jpg" },
-  { src: "/assets/images/culturalfood2.jpg", alt: "h7.jpg" },
-  { src: "/assets/images/culturalfood3.jpg", alt: "h8.jpg" },
-  { src: "/assets/images/culturalfood4.jpg", alt: "h8.jpg" },
+  { src: "/assets/images/photo/sarobira.jpg", alt: "sarobira.jpg", title: "" },
+  { src: "/assets/images/Ham1.jpg", alt: "h4.jpg", title: "" },
+  { src: "/assets/images/photo/hanakalo.jpg", alt: "hanakalo.jpg", title: "" },
+  { src: "/assets/images/abiy.jpg", alt: "h6.jpg", title: "" },
+  { src: "/assets/images/culturalfood2.jpg", alt: "h7.jpg", title: "" },
+  { src: "/assets/images/culturalfood3.jpg", alt: "h8.jpg", title: "" },
+  { src: "/assets/images/culturalfood4.jpg", alt: "h8.jpg", title: "" },
   {
     src: "/assets/images/photo/AJORA SINGLE PHOTO.jpg",
     alt: "ajora single photo.jpg",

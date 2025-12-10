@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router";
 import { Link } from "react-router";
 import { homeSidebarItems } from "~/constants";
@@ -46,6 +46,17 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
   const { allPosts } = loaderData;
   console.log("allPosts", allPosts);
 
+  const [filter, setFilter] = useState<string>("all");
+  const [filteredPosts, setFilteredPosts] = useState<any[]>([]);
+
+  //2 FILTER CATEGORIES
+  const filterCategories = [
+    { id: "all", label: "All" },
+    { id: "hotels", label: "Hotels" },
+    { id: "destinations", label: "Destinations" },
+    { id: "foods", label: "Foods" },
+    { id: "events", label: "Events" },
+  ];
   // const user = useLoaderData();
   const navigate = useNavigate();
   const hanldeLogout = () => {
@@ -154,1086 +165,1127 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
         </div>
       </section>
 
+      {/* 3. FILTER COMPONENT */}
+      <section className="py-8 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-wrap gap-4 justify-center">
+            {filterCategories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setFilter(category.id)}
+                className={`px-6 py-2 rounded-full font-medium transition-colors ${
+                  filter === category.id
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {(filter === "all" || filter === "hotels") && (
+        <section>
+          <div>
+            <h1 className="text-dark-100 font-bold text-5xl text-center justify-center lg:mt-20">
+              Hotels
+            </h1>
+          </div>
+          <div className="lg:flex mt-8">
+            <div className="relative mx-auto w-full max-w-xs rounded-3xl border border-zinc-200 bg-white ring-4 ring-zinc-300/25 mb-8">
+              <div className="relative overflow-hidden rounded-3xl bg-white">
+                <div className="relative overflow-hidden">
+                  <div className="absolute top-0 left-0 p-6">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900/50 px-2.5 py-1 text-sm font-medium text-white backdrop-blur-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="hi-micro hi-star inline-block size-4 text-orange-400"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Popular</span>
+                    </span>
+                  </div>
+                  <div className="absolute top-0 right-0 p-6">
+                    <button
+                      type="button"
+                      className="inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/50 text-white backdrop-blur-sm hover:bg-zinc-900 hover:text-red-400"
+                      aria-label="Favorite"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        className="lucide lucide-heart inline-block size-4"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <img
+                    src="/assets/images/yichalal-2.jpg"
+                    alt="Yichalal Hotel"
+                    className="aspect-16/9 w-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="mb-4">
+                    <h3 className="mb-1 text-xl font-bold text-zinc-800">
+                      Yichalal Hotel
+                    </h3>
+                    <div className="flex items-center gap-1 text-sm text-zinc-600">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        className="lucide lucide-map-pin inline-block size-4 text-zinc-400"
+                      >
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <span>Shinshicho, Kembata</span>
+                    </div>
+                  </div>
+                  <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 invisible">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          className="lucide lucide-clock-2 inline-block size-4 text-zinc-400"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 10" />
+                        </svg>
+                        <span className="text-sm text-zinc-600">
+                          Premium Service
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 invisible">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          className="lucide lucide-trending-up inline-block size-4 text-zinc-400"
+                        >
+                          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                          <polyline points="16 7 22 7 22 13" />
+                        </svg>
+                        <span className="text-sm text-zinc-600">
+                          Premium service
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6 text-orange-400"
+                      >
+                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+                      </svg>
+                      <span className="text-lg font-medium text-zinc-700">
+                        4.9
+                      </span>
+                    </div>
+                  </div>
+
+                  <hr className="my-4 border-zinc-100" />
+
+                  <div className="mb-4 flex flex-wrap gap-1.5">
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Safety and security
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Wifi
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Room Service
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Food and beverages
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                            className="lucide lucide-mountain-snow inline-block size-4"
+                          >
+                            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+                            <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-zinc-800">
+                            Yichalal Hotel
+                          </div>
+                          <div className="text-xs text-zinc-600">
+                            Premium Service
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="hi-micro hi-check inline-block size-4"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Available</span>
+                    </span>
+                  </div>
+
+                  <hr className="my-4 border-zinc-100" />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-zinc-800 invisible"></span>
+                        <span className="text-xs text-zinc-600 invisible"></span>
+                      </div>
+                      <p className="text-xs text-emerald-600 invisible"></p>
+                    </div>
+                    <button
+                      type="button"
+                      className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div></div>
+            <div className="relative mx-auto w-full max-w-xs rounded-3xl border border-zinc-200 bg-white ring-4 ring-zinc-300/25 mb-8">
+              <div className="relative overflow-hidden rounded-3xl bg-white">
+                <div className="relative overflow-hidden">
+                  <div className="absolute top-0 left-0 p-6">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900/50 px-2.5 py-1 text-sm font-medium text-white backdrop-blur-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="hi-micro hi-star inline-block size-4 text-orange-400"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Popular</span>
+                    </span>
+                  </div>
+                  <div className="absolute top-0 right-0 p-6">
+                    <button
+                      type="button"
+                      className="inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/50 text-white backdrop-blur-sm hover:bg-zinc-900 hover:text-red-400"
+                      aria-label="Favorite"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        className="lucide lucide-heart inline-block size-4"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <img
+                    src="/assets/images/aberash.jpg"
+                    alt="Aberash Hotel"
+                    className="aspect-16/9 w-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="mb-4">
+                    <h3 className="mb-1 text-xl font-bold text-green-500">
+                      Aberash Hotel
+                    </h3>
+                    <div className="flex items-center gap-1 text-sm text-zinc-600">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        className="lucide lucide-map-pin inline-block size-4 text-zinc-400"
+                      >
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <span>Durame, Kembata</span>
+                    </div>
+                  </div>
+                  <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 invisible">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          className="lucide lucide-clock-2 inline-block size-4 text-zinc-400"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 10" />
+                        </svg>
+                        <span className="text-sm text-zinc-600"></span>
+                      </div>
+                      <div className="flex items-center gap-2 invisible">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          className="lucide lucide-trending-up inline-block size-4 text-zinc-400"
+                        >
+                          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                          <polyline points="16 7 22 7 22 13" />
+                        </svg>
+                        <span className="text-sm text-zinc-600"></span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6 text-orange-400"
+                      >
+                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+                      </svg>
+                      <span className="text-lg font-medium text-zinc-700">
+                        4.9
+                      </span>
+                    </div>
+                  </div>
+
+                  <hr className="my-4 border-zinc-100" />
+
+                  <div className="mb-4 flex flex-wrap gap-1.5">
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Safety and security
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Wfi
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Room Service
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Food and Beverages
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                            className="lucide lucide-mountain-snow inline-block size-4"
+                          >
+                            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+                            <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium  text-green-500">
+                            Aberash Hotel
+                          </div>
+                          <div className="text-xs text-zinc-600">
+                            Premium Service
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="hi-micro hi-check inline-block size-4"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Available</span>
+                    </span>
+                  </div>
+
+                  <hr className="my-4 border-zinc-100" />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-zinc-800 invisible"></span>
+                        <span className="text-xs text-zinc-600 invisible"></span>
+                      </div>
+                      <p className="text-xs text-emerald-600 invisible"></p>
+                    </div>
+                    <button
+                      type="button"
+                      className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div></div>
+            <div className="relative mx-auto w-full max-w-xs rounded-3xl border border-zinc-200 bg-white ring-4 ring-zinc-300/25 mb-8">
+              <div className="relative overflow-hidden rounded-3xl bg-white">
+                <div className="relative overflow-hidden">
+                  <div className="absolute top-0 left-0 p-6">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900/50 px-2.5 py-1 text-sm font-medium text-white backdrop-blur-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="hi-micro hi-star inline-block size-4 text-orange-400"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Popular</span>
+                    </span>
+                  </div>
+                  <div className="absolute top-0 right-0 p-6">
+                    <button
+                      type="button"
+                      className="inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/50 text-white backdrop-blur-sm hover:bg-zinc-900 hover:text-red-400"
+                      aria-label="Favorite"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        className="lucide lucide-heart inline-block size-4"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <img
+                    src="/assets/images/wojo.jpg"
+                    alt="Wojo Hotel"
+                    className="aspect-16/9 w-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="mb-4">
+                    <h3 className="mb-1 text-xl font-bold text-dark-100">
+                      Wojo Hotel
+                    </h3>
+                    <div className="flex items-center gap-1 text-sm text-zinc-600">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        className="lucide lucide-map-pin inline-block size-4 text-zinc-400"
+                      >
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <span>Durame, Kembata</span>
+                    </div>
+                  </div>
+                  <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 invisible">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          className="lucide lucide-clock-2 inline-block size-4 text-zinc-400"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 10" />
+                        </svg>
+                        <span className="text-sm text-zinc-600"></span>
+                      </div>
+                      <div className="flex items-center gap-2 invisible">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          className="lucide lucide-trending-up inline-block size-4 text-zinc-400"
+                        >
+                          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                          <polyline points="16 7 22 7 22 13" />
+                        </svg>
+                        <span className="text-sm text-zinc-600"></span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6 text-orange-400"
+                      >
+                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+                      </svg>
+                      <span className="text-lg font-medium text-zinc-700">
+                        4.9
+                      </span>
+                    </div>
+                  </div>
+
+                  <hr className="my-4 border-zinc-100" />
+
+                  <div className="mb-4 flex flex-wrap gap-1.5">
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Safety and Security
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Food and Beverages
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Wifi
+                    </span>
+                    <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
+                      Room Service
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                            className="lucide lucide-mountain-snow inline-block size-4"
+                          >
+                            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+                            <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-green-500">
+                            Wojo Hotel
+                          </div>
+                          <div className="text-xs text-zinc-600">
+                            Premium Service
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="hi-micro hi-check inline-block size-4"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Available</span>
+                    </span>
+                  </div>
+
+                  <hr className="my-4 border-zinc-100" />
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-zinc-800"></span>
+                        <span className="text-xs text-zinc-600"></span>
+                      </div>
+                      <p className="text-xs text-emerald-600"></p>
+                    </div>
+                    <button
+                      type="button"
+                      className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div></div>
+          </div>
+        </section>
+      )}
       {/* HOTELS  */}
-      <section>
-        <div>
-          <h1 className="text-dark-100 font-bold text-5xl text-center justify-center lg:mt-20">
-            Hotels
-          </h1>
-        </div>
-        <div className="lg:flex mt-8">
-          <div className="relative mx-auto w-full max-w-xs rounded-3xl border border-zinc-200 bg-white ring-4 ring-zinc-300/25 mb-8">
-            <div className="relative overflow-hidden rounded-3xl bg-white">
-              <div className="relative overflow-hidden">
-                <div className="absolute top-0 left-0 p-6">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900/50 px-2.5 py-1 text-sm font-medium text-white backdrop-blur-sm">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="hi-micro hi-star inline-block size-4 text-orange-400"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <span>Popular</span>
-                  </span>
-                </div>
-                <div className="absolute top-0 right-0 p-6">
-                  <button
-                    type="button"
-                    className="inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/50 text-white backdrop-blur-sm hover:bg-zinc-900 hover:text-red-400"
-                    aria-label="Favorite"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      className="lucide lucide-heart inline-block size-4"
-                    >
-                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                    </svg>
-                  </button>
-                </div>
-                <img
-                  src="/assets/images/yichalal-2.jpg"
-                  alt="Yichalal Hotel"
-                  className="aspect-16/9 w-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="mb-4">
-                  <h3 className="mb-1 text-xl font-bold text-zinc-800">
-                    Yichalal Hotel
-                  </h3>
-                  <div className="flex items-center gap-1 text-sm text-zinc-600">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      className="lucide lucide-map-pin inline-block size-4 text-zinc-400"
-                    >
-                      <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span>Shinshicho, Kembata</span>
+      {(filter === "all" || filter === "destinations") && (
+        <section>
+          {/* DESTINATION AND CULTURAL FOOD */}
+          <section className="py-16 bg-white">
+            <div className="max-w-6xl mx-auto px-6">
+              <h2 className="text-4xl font-bold text-center mb-10">
+                Destinations
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                {/* Hambaricho Mountain */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/icons/Hambericho777.jpg"
+                      alt="Hambaricho Mountain"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Hambaricho Mountain
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A sacred mountain and symbol of unity for the Kembata
+                      people, offering beautiful cultural heritage and stunning
+                      views.
+                    </p>
                   </div>
                 </div>
-                <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 invisible">
+
+                {/* Filwuha Hot Spring */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/gemesha.jpg"
+                      alt="Filwuha Hot Spring"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Filwuha Hot Spring
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A natural hot spring with warm therapeutic waters, perfect
+                      for relaxation and wellness.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Sodicho Cave */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/sodicho cave.jpg"
+                      alt="Sodicho Cave"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Sodicho Cave
+                    </h3>
+                    <div className="flex items-center gap-1 text-sm text-gray-600 mb-4"></div>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800 mb-3">
+                      An ancient cave rich with mystery, tradition, and
+                      historical significance. A must visit for cultural
+                      explorers.
+                    </p>
+                    <div className="flex items-center gap-2 text-gray-600 md:transition-colors md:duration-300 md:group-hover:text-gray-800">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         aria-hidden="true"
-                        className="lucide lucide-clock-2 inline-block size-4 text-zinc-400"
+                        className="lucide lucide-map-pin inline-block size-4 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600"
                       >
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 10" />
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                        <circle cx="12" cy="10" r="3" />
                       </svg>
-                      <span className="text-sm text-zinc-600">
-                        Premium Service
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 invisible">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        className="lucide lucide-trending-up inline-block size-4 text-zinc-400"
-                      >
-                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                        <polyline points="16 7 22 7 22 13" />
-                      </svg>
-                      <span className="text-sm text-zinc-600">
-                        Premium service
-                      </span>
+                      <span>Kembata Zone, Ethiopia</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6 text-orange-400"
-                    >
-                      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-                    </svg>
-                    <span className="text-lg font-medium text-zinc-700">
-                      4.9
-                    </span>
+                </div>
+
+                {/* Aziga Waterfall */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/Aziga Waterfall.jpg"
+                      alt="Aziga Waterfall"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Aziga Waterfall
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      Located in Angacha City, just 32km from Durame — Aziga
+                      blends refreshing nature and peaceful scenery in the heart
+                      of Kembata.
+                    </p>
                   </div>
                 </div>
 
-                <hr className="my-4 border-zinc-100" />
-
-                <div className="mb-4 flex flex-wrap gap-1.5">
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Safety and security
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Wifi
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Room Service
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Food and beverages
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                          className="lucide lucide-mountain-snow inline-block size-4"
-                        >
-                          <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                          <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-zinc-800">
-                          Yichalal Hotel
-                        </div>
-                        <div className="text-xs text-zinc-600">
-                          Premium Service
-                        </div>
-                      </div>
-                    </div>
+                {/* Sana Waterfall */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/sanawaterfall.jpg"
+                      alt="Sana Waterfall"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="hi-micro hi-check inline-block size-4"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <span>Available</span>
-                  </span>
-                </div>
-
-                <hr className="my-4 border-zinc-100" />
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold text-zinc-800 invisible"></span>
-                      <span className="text-xs text-zinc-600 invisible"></span>
-                    </div>
-                    <p className="text-xs text-emerald-600 invisible"></p>
-                  </div>
-                  <button
-                    type="button"
-                    className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
-                  >
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div></div>
-          <div className="relative mx-auto w-full max-w-xs rounded-3xl border border-zinc-200 bg-white ring-4 ring-zinc-300/25 mb-8">
-            <div className="relative overflow-hidden rounded-3xl bg-white">
-              <div className="relative overflow-hidden">
-                <div className="absolute top-0 left-0 p-6">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900/50 px-2.5 py-1 text-sm font-medium text-white backdrop-blur-sm">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="hi-micro hi-star inline-block size-4 text-orange-400"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <span>Popular</span>
-                  </span>
-                </div>
-                <div className="absolute top-0 right-0 p-6">
-                  <button
-                    type="button"
-                    className="inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/50 text-white backdrop-blur-sm hover:bg-zinc-900 hover:text-red-400"
-                    aria-label="Favorite"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      className="lucide lucide-heart inline-block size-4"
-                    >
-                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                    </svg>
-                  </button>
-                </div>
-                <img
-                  src="/assets/images/aberash.jpg"
-                  alt="Aberash Hotel"
-                  className="aspect-16/9 w-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="mb-4">
-                  <h3 className="mb-1 text-xl font-bold text-green-500">
-                    Aberash Hotel
-                  </h3>
-                  <div className="flex items-center gap-1 text-sm text-zinc-600">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      className="lucide lucide-map-pin inline-block size-4 text-zinc-400"
-                    >
-                      <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span>Durame, Kembata</span>
-                  </div>
-                </div>
-                <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 invisible">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        className="lucide lucide-clock-2 inline-block size-4 text-zinc-400"
-                      >
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 10" />
-                      </svg>
-                      <span className="text-sm text-zinc-600"></span>
-                    </div>
-                    <div className="flex items-center gap-2 invisible">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        className="lucide lucide-trending-up inline-block size-4 text-zinc-400"
-                      >
-                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                        <polyline points="16 7 22 7 22 13" />
-                      </svg>
-                      <span className="text-sm text-zinc-600"></span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6 text-orange-400"
-                    >
-                      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-                    </svg>
-                    <span className="text-lg font-medium text-zinc-700">
-                      4.9
-                    </span>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Sana Waterfall
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A charming waterfall surrounded by lush greenery, offering
+                      a calm and refreshing atmosphere for nature lovers.
+                    </p>
                   </div>
                 </div>
 
-                <hr className="my-4 border-zinc-100" />
-
-                <div className="mb-4 flex flex-wrap gap-1.5">
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Safety and security
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Wfi
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Room Service
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Food and Beverages
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                          className="lucide lucide-mountain-snow inline-block size-4"
-                        >
-                          <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                          <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium  text-green-500">
-                          Aberash Hotel
-                        </div>
-                        <div className="text-xs text-zinc-600">
-                          Premium Service
-                        </div>
-                      </div>
-                    </div>
+                {/* Sarobira Landscape */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/sarobira.jpg"
+                      alt="Sarobira Landscape"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="hi-micro hi-check inline-block size-4"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <span>Available</span>
-                  </span>
-                </div>
-
-                <hr className="my-4 border-zinc-100" />
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold text-zinc-800 invisible"></span>
-                      <span className="text-xs text-zinc-600 invisible"></span>
-                    </div>
-                    <p className="text-xs text-emerald-600 invisible"></p>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Sarobira Landscape
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A wide open scenic landscape with natural formations and
+                      panoramic views — perfect for photography and meditation.
+                    </p>
                   </div>
-                  <button
-                    type="button"
-                    className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
-                  >
-                    Book Now
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
+        </section>
+      )}
+      {(filter === "all" || filter === "foods") && (
+        <section>
+          {/* FOODS SECTION  */}
+          <section className="py-16 bg-white-100">
+            <div className="max-w-6xl mx-auto px-6">
+              <h2 className="text-4xl font-bold text-center mb-10">
+                Traditional Foods
+              </h2>
 
-          <div></div>
-          <div className="relative mx-auto w-full max-w-xs rounded-3xl border border-zinc-200 bg-white ring-4 ring-zinc-300/25 mb-8">
-            <div className="relative overflow-hidden rounded-3xl bg-white">
-              <div className="relative overflow-hidden">
-                <div className="absolute top-0 left-0 p-6">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-zinc-900/50 px-2.5 py-1 text-sm font-medium text-white backdrop-blur-sm">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="hi-micro hi-star inline-block size-4 text-orange-400"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <span>Popular</span>
-                  </span>
-                </div>
-                <div className="absolute top-0 right-0 p-6">
-                  <button
-                    type="button"
-                    className="inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/50 text-white backdrop-blur-sm hover:bg-zinc-900 hover:text-red-400"
-                    aria-label="Favorite"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      className="lucide lucide-heart inline-block size-4"
-                    >
-                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                    </svg>
-                  </button>
-                </div>
-                <img
-                  src="/assets/images/wojo.jpg"
-                  alt="Wojo Hotel"
-                  className="aspect-16/9 w-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <div className="mb-4">
-                  <h3 className="mb-1 text-xl font-bold text-dark-100">
-                    Wojo Hotel
-                  </h3>
-                  <div className="flex items-center gap-1 text-sm text-zinc-600">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      className="lucide lucide-map-pin inline-block size-4 text-zinc-400"
-                    >
-                      <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span>Durame, Kembata</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                {/* Kocho */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/kocho.jpg"
+                      alt="Kocho"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
                   </div>
-                </div>
-                <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 invisible">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        className="lucide lucide-clock-2 inline-block size-4 text-zinc-400"
-                      >
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 10" />
-                      </svg>
-                      <span className="text-sm text-zinc-600"></span>
-                    </div>
-                    <div className="flex items-center gap-2 invisible">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        className="lucide lucide-trending-up inline-block size-4 text-zinc-400"
-                      >
-                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                        <polyline points="16 7 22 7 22 13" />
-                      </svg>
-                      <span className="text-sm text-zinc-600"></span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6 text-orange-400"
-                    >
-                      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-                    </svg>
-                    <span className="text-lg font-medium text-zinc-700">
-                      4.9
-                    </span>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Kocho
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A traditional bread made from the Enset plant. Often
+                      served with meat, milk, or vegetables — a cultural symbol
+                      of unity and hospitality.
+                    </p>
                   </div>
                 </div>
 
-                <hr className="my-4 border-zinc-100" />
-
-                <div className="mb-4 flex flex-wrap gap-1.5">
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Safety and Security
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Food and Beverages
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Wifi
-                  </span>
-                  <span className="rounded-lg bg-zinc-200/50 px-2 py-1 text-xs font-medium text-zinc-700">
-                    Room Service
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                          className="lucide lucide-mountain-snow inline-block size-4"
-                        >
-                          <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                          <path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-green-500">
-                          Wojo Hotel
-                        </div>
-                        <div className="text-xs text-zinc-600">
-                          Premium Service
-                        </div>
-                      </div>
-                    </div>
+                {/* Bulla */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/bulla.jpg"
+                      alt="Bulla"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-700">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="hi-micro hi-check inline-block size-4"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <span>Available</span>
-                  </span>
-                </div>
-
-                <hr className="my-4 border-zinc-100" />
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold text-zinc-800"></span>
-                      <span className="text-xs text-zinc-600"></span>
-                    </div>
-                    <p className="text-xs text-emerald-600"></p>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Bulla
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A smooth, highly digestible porridge made from the
+                      purified starch extract of the Enset plant. It provides a
+                      quick and powerful source of sustained energy and vital
+                      minerals (like Calcium and Potassium).
+                    </p>
                   </div>
-                  <button
-                    type="button"
-                    className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
-                  >
-                    Book Now
-                  </button>
+                </div>
+
+                {/* Hankalo */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/hanakalo.jpg"
+                      alt="Hankalo"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Hankalo
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      Roasted and crushed barley (or wheat) mixed with
+                      traditional spices and butter. This deep-flavor dish is
+                      rich in fiber (if using barley) and provides B vitamins
+                      and a warm, nourishing meal for gatherings.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Atakana */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/culturalfood7.jpg"
+                      alt="Atakana"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Atakana
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A special celebratory meal traditionally prepared during
+                      major holidays on a flat earthen oven. It is usually made
+                      with rich, varied ingredients that offer a high content of
+                      protein, healthy fats, and micronutrients.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Godere (Gebiza) */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/godere.jpg"
+                      alt="Godere (Gebiza)"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      (Gebiza) Godere
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A traditional staple food item, often derived from ground
+                      cereals. It contributes a strong base of sustained caloric
+                      energy and important dietary fiber to the daily Kembata
+                      diet.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Mucho */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/mucho.jpg"
+                      alt="Mucho"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Mucho
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A dense, highly filling Kembata specialty food, often
+                      related to the Kocho/Bula family. It is valued for its
+                      contribution to food security and its dense concentration
+                      of carbohydrates and minerals.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Kitifo */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/kitifo.jpg"
+                      alt="Kitifo"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Kitifo
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      A traditional dish of minced raw beef mixed with *mitmita*
+                      (chili) and /niter kibbeh/ (spiced butter). It is an
+                      excellent source of high-quality complete protein,
+                      essential Iron, and Vitamin B12.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Ayib (Cheese) */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/AYIB.jpg"
+                      alt="Ayib (Ethiopian Cottage Cheese)"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Ayib (Cottage Cheese)
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      Ethiopian fresh cottage cheese, often served with spicy
+                      meat dishes or Kocho. It is a vital and easily digestible
+                      protein supplement that provides a rich source of calcium
+                      for bone health.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
+        </section>
+      )}
+      {(filter === "all" || filter === "events") && (
+        <section>
+          <section className="py-16 bg-white-100">
+            <div className="max-w-6xl mx-auto px-6">
+              <h2 className="text-4xl font-bold text-center mb-10">Events</h2>
 
-          <div></div>
-        </div>
-      </section>
-      {/* DESTINATION AND CULTURAL FOOD */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-10">Destinations</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/festival.jpg"
+                      alt="Masala Festival"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Masala Festival
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      This is the most prominent annual festival for the Kembata
+                      people, often celebrated with events like the "Masala
+                      Week" and other related activities like the "Miss Kambata"
+                      competition. While the exact dates vary each year, it is a
+                      major cultural event to look forward to.
+                    </p>
+                  </div>
+                </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Hambaricho Mountain */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/icons/Hambericho777.jpg"
-                  alt="Hambaricho Mountain"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Hambaricho Mountain
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A sacred mountain and symbol of unity for the Kembata people,
-                  offering beautiful cultural heritage and stunning views.
-                </p>
-              </div>
-            </div>
+                {/* miss masala */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/missmasala1.jpg"
+                      alt="Miss Masala"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Miss Masala
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      Miss Masala is a dynamic competition where beautiful and
+                      talented women come together to showcase their grace,
+                      strength, and individuality. This event not only
+                      recognizes their accomplishments but also empowers
+                      participants to embrace their unique identities and
+                      cultures.
+                    </p>
+                  </div>
+                </div>
 
-            {/* Filwuha Hot Spring */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/gemesha.jpg"
-                  alt="Filwuha Hot Spring"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Filwuha Hot Spring
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A natural hot spring with warm therapeutic waters, perfect for
-                  relaxation and wellness.
-                </p>
-              </div>
-            </div>
+                {/* Masala Great Run */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/masala run.jpg"
+                      alt="Masala Great Run"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Masala Great Run
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      The Masala Great Run is an exhilarating event that brings
+                      people together to promote unity and celebrate the vibrant
+                      culture of the Kembata community. Participants of all ages
+                      come together to compete in a fun and festive atmosphere,
+                      fostering camaraderie and community spirit.
+                    </p>
+                  </div>
+                </div>
 
-            {/* Sodicho Cave */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/sodicho cave.jpg"
-                  alt="Sodicho Cave"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Sodicho Cave
-                </h3>
-                <div className="flex items-center gap-1 text-sm text-gray-600 mb-4"></div>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800 mb-3">
-                  An ancient cave rich with mystery, tradition, and historical
-                  significance. A must visit for cultural explorers.
-                </p>
-                <div className="flex items-center gap-2 text-gray-600 md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                    className="lucide lucide-map-pin inline-block size-4 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600"
-                  >
-                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span>Kembata Zone, Ethiopia</span>
+                {/* tour events */}
+                <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src="assets/images/photo/tourevent.jpg"
+                      alt="Tour Event"
+                      className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
+                      Masala Tour
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
+                      Join us for an immersive Tour Event that invites you to
+                      discover the breathtaking beauty and rich culture of the
+                      Kembata region. This engaging experience will take you
+                      through stunning landscapes, showcasing local traditions,
+                      art, and history.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+          </section>
+        </section>
+      )}
 
-            {/* Aziga Waterfall */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/Aziga Waterfall.jpg"
-                  alt="Aziga Waterfall"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Aziga Waterfall
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  Located in Angacha City, just 32km from Durame — Aziga blends
-                  refreshing nature and peaceful scenery in the heart of
-                  Kembata.
-                </p>
-              </div>
-            </div>
-
-            {/* Sana Waterfall */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/sanawaterfall.jpg"
-                  alt="Sana Waterfall"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Sana Waterfall
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A charming waterfall surrounded by lush greenery, offering a
-                  calm and refreshing atmosphere for nature lovers.
-                </p>
-              </div>
-            </div>
-
-            {/* Sarobira Landscape */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/sarobira.jpg"
-                  alt="Sarobira Landscape"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Sarobira Landscape
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A wide open scenic landscape with natural formations and
-                  panoramic views — perfect for photography and meditation.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* FOODS SECTION  */}
-      <section className="py-16 bg-white-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-10">
-            Traditional Foods
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Kocho */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/kocho.jpg"
-                  alt="Kocho"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Kocho
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A traditional bread made from the Enset plant. Often served
-                  with meat, milk, or vegetables — a cultural symbol of unity
-                  and hospitality.
-                </p>
-              </div>
-            </div>
-
-            {/* Bulla */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/bulla.jpg"
-                  alt="Bulla"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Bulla
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A smooth, highly digestible porridge made from the purified
-                  starch extract of the Enset plant. It provides a quick and
-                  powerful source of sustained energy and vital minerals (like
-                  Calcium and Potassium).
-                </p>
-              </div>
-            </div>
-
-            {/* Hankalo */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/hanakalo.jpg"
-                  alt="Hankalo"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Hankalo
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  Roasted and crushed barley (or wheat) mixed with traditional
-                  spices and butter. This deep-flavor dish is rich in fiber (if
-                  using barley) and provides B vitamins and a warm, nourishing
-                  meal for gatherings.
-                </p>
-              </div>
-            </div>
-
-            {/* Atakana */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/culturalfood7.jpg"
-                  alt="Atakana"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Atakana
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A special celebratory meal traditionally prepared during major
-                  holidays on a flat earthen oven. It is usually made with rich,
-                  varied ingredients that offer a high content of protein,
-                  healthy fats, and micronutrients.
-                </p>
-              </div>
-            </div>
-
-            {/* Godere (Gebiza) */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/godere.jpg"
-                  alt="Godere (Gebiza)"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  (Gebiza) Godere
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A traditional staple food item, often derived from ground
-                  cereals. It contributes a strong base of sustained caloric
-                  energy and important dietary fiber to the daily Kembata diet.
-                </p>
-              </div>
-            </div>
-
-            {/* Mucho */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/mucho.jpg"
-                  alt="Mucho"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Mucho
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A dense, highly filling Kembata specialty food, often related
-                  to the Kocho/Bula family. It is valued for its contribution to
-                  food security and its dense concentration of carbohydrates and
-                  minerals.
-                </p>
-              </div>
-            </div>
-
-            {/* Kitifo */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/kitifo.jpg"
-                  alt="Kitifo"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Kitifo
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  A traditional dish of minced raw beef mixed with *mitmita*
-                  (chili) and /niter kibbeh/ (spiced butter). It is an excellent
-                  source of high-quality complete protein, essential Iron, and
-                  Vitamin B12.
-                </p>
-              </div>
-            </div>
-
-            {/* Ayib (Cheese) */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/AYIB.jpg"
-                  alt="Ayib (Ethiopian Cottage Cheese)"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Ayib (Cottage Cheese)
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  Ethiopian fresh cottage cheese, often served with spicy meat
-                  dishes or Kocho. It is a vital and easily digestible protein
-                  supplement that provides a rich source of calcium for bone
-                  health.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-white-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-10">Events</h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/festival.jpg"
-                  alt="Masala Festival"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Masala Festival
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  This is the most prominent annual festival for the Kembata
-                  people, often celebrated with events like the "Masala Week"
-                  and other related activities like the "Miss Kambata"
-                  competition. While the exact dates vary each year, it is a
-                  major cultural event to look forward to.
-                </p>
-              </div>
-            </div>
-
-            {/* miss masala */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/missmasala1.jpg"
-                  alt="Miss Masala"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Miss Masala
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  Miss Masala is a dynamic competition where beautiful and
-                  talented women come together to showcase their grace,
-                  strength, and individuality. This event not only recognizes
-                  their accomplishments but also empowers participants to
-                  embrace their unique identities and cultures.
-                </p>
-              </div>
-            </div>
-
-            {/* Masala Great Run */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/masala run.jpg"
-                  alt="Masala Great Run"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Masala Great Run
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  The Masala Great Run is an exhilarating event that brings
-                  people together to promote unity and celebrate the vibrant
-                  culture of the Kembata community. Participants of all ages
-                  come together to compete in a fun and festive atmosphere,
-                  fostering camaraderie and community spirit.
-                </p>
-              </div>
-            </div>
-
-            {/* tour events */}
-            <div className="group bg-white shadow-lg rounded-lg overflow-hidden md:transform md:transition-all md:duration-500 md:hover:-translate-y-2 md:hover:shadow-2xl">
-              <div className="relative overflow-hidden">
-                <img
-                  src="assets/images/photo/tourevent.jpg"
-                  alt="Tour Event"
-                  className="w-full h-56 object-cover md:transition-transform md:duration-700 md:group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-green-500 md:transition-colors md:duration-300 md:group-hover:text-green-600">
-                  Masala Tour
-                </h3>
-                <p className="text-gray-700 leading-relaxed md:transition-colors md:duration-300 md:group-hover:text-gray-800">
-                  Join us for an immersive Tour Event that invites you to
-                  discover the breathtaking beauty and rich culture of the
-                  Kembata region. This engaging experience will take you through
-                  stunning landscapes, showcasing local traditions, art, and
-                  history.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       <footer className="bg-gray-300 text-white py-10 text-center">
         <div className="relative mx-auto w-full max-w-lg rounded-xl p-4 shadow-sm backdrop-blur-xs">
           <div className="rounded-lg p-4">
