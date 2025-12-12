@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom"; // Use react-router-dom for Link/NavLink
+import { Link, NavLink, useNavigate } from "react-router";
 import React from "react";
 import {
   FaInstagram,
@@ -8,13 +8,20 @@ import {
   FaCalendarAlt,
   FaUser,
   FaTag,
-  FaMapMarkedAlt, // Added for Geography icon
-  FaHistory, // Added for History icon
+  FaMapMarkedAlt,
+  FaHistory,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
-// import NavBar from "./NavBar"; // NavBar is commented out as it's not defined
-import { homeSidebarItems, user } from "~/constants";
+import { homeSidebarItems } from "~/constants";
 import { cn } from "~/lib/utils";
+import { getUser } from "~/appwrite/auth";
+import type { Route } from "./+types/About"; // You'll need to create this type file
+
+// Add loader to fetch real user data
+export const loader = async () => {
+  const user = await getUser();
+  return { user };
+};
 
 // Helper component for the Footer
 const Footer = () => (
@@ -31,14 +38,15 @@ const Footer = () => (
   </footer>
 );
 
-// NOTE: The Blog Post Data and related components (BlogPost, BlogPostCard) are kept but not used
-// in the main export function, as the request focused on the "About Us" section.
+// I applied this: Updated function signature to use loaderData
+export default function Blog({ loaderData }: Route.ComponentProps) {
+  const user = loaderData.user as User | null;
+  const navigate = useNavigate();
 
-export default function Blog() {
-  function hanldeLogout(event: React.MouseEvent<HTMLButtonElement>): void {
-    // implement logout behavior here
-    console.log("Logout clicked");
-  }
+  // I applied this: Real logout functionality
+  const hanldeLogout = () => {
+    navigate("/sign-in");
+  };
 
   return (
     <div className="font-sans text-gray-800">
@@ -96,9 +104,10 @@ export default function Blog() {
               </nav>
 
               {/* Right: compact user block */}
+              {/* I applied this: Using real user data from loader */}
               <div className="flex items-center gap-3">
                 <img
-                  src={(user as any)?.imageUrl ?? "/assets/images/david.webp"}
+                  src={user?.imageUrl ?? "/assets/images/david.webp"}
                   alt={user?.name ?? "User"}
                   className="w-9 h-9 rounded-full object-cover"
                   referrerPolicy="no-referrer"
