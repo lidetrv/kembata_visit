@@ -137,8 +137,8 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
         </header>
       </section>
       {/* header */}
-      <section className="relative h-[30vh] bg-cover bg-center flex items-center justify-center text-center text-white p-10 mt-12">
-        <div className=" bg-opacity-20 p-10 rounded-xl mx-4  backdrop-blur-2xl">
+      <section className="relative bg-cover bg-center flex items-center justify-center text-center text-white p-4 md:p-10 rounded-xl backdrop-blur-2xl w-full max-w-6xl">
+        <div className=" bg-opacity-20 p-6 md:p-10 rounded-xl mx-2  backdrop-blur-2xl w-full max-w-6xl">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -166,7 +166,7 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
       </section>
 
       {/* 3. FILTER COMPONENT */}
-      <section className="py-8 px-6 lg:pt-16">
+      <section className="py-8 px-6 mt-8 md: mt-0 relative z-10 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-wrap gap-4 justify-center">
             {filterCategories.map((category) => (
