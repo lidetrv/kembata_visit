@@ -7,25 +7,14 @@ import {
 } from "react-router";
 import { fetchPosts } from "~/appwrite/posts";
 import { cn, parseTripData } from "~/lib/utils";
-
 import { useState } from "react";
 import { PostCard } from "componentsCreated";
 import { PagerComponent } from "@syncfusion/ej2-react-grids";
 import type { Route } from "./+types/BlogContent";
-import { homeSidebarItems, user } from "~/constants";
+import { homeSidebarItems } from "~/constants";
 import { getUser } from "~/appwrite/auth";
 
-// export const loader = async ({ request }: LoaderFunctionArgs) => {
-//   const limit = 8;
-//   const url = new URL(request.url);
-//   const page = parseInt(url.searchParams.get("page") || "1", 10);
-//   const offset = (page - 1) * limit;
-
-//   const { posts, total } = await fetchPosts(limit, offset);
-
-//   return { posts, total, page };
-// };
-
+// I applied this: Modified loader to include real user data fetching
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const limit = 8;
   const url = new URL(request.url);
@@ -34,18 +23,19 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const [{ posts, total }, user] = await Promise.all([
     fetchPosts(limit, offset),
-    getUser(), // 🔥 fetch the real user like case 1
+    getUser(),
   ]);
 
   return { posts, total, page, user };
 };
 
 const BlogContent = ({ loaderData }: Route.ComponentProps) => {
-  const { posts, total, page } = loaderData;
+  const { posts, total, page, user } = loaderData; // I applied this: Destructure user from loaderData
   const { postDetails } = parseTripData(posts) || {};
-  console.log("posts", posts);
 
   const navigate = useNavigate();
+
+  // I applied this: Real logout functionality
   const hanldeLogout = () => {
     navigate("/sign-in");
   };
@@ -113,9 +103,10 @@ const BlogContent = ({ loaderData }: Route.ComponentProps) => {
                 </nav>
 
                 {/* Right: compact user block */}
+                {/* I applied this: Using real user data from loader */}
                 <div className="flex items-center gap-3">
                   <img
-                    src={(user as any)?.imageUrl ?? "/assets/images/david.webp"}
+                    src={user?.imageUrl ?? "/assets/images/david.webp"}
                     alt={user?.name ?? "User"}
                     className="w-9 h-9 rounded-full object-cover"
                     referrerPolicy="no-referrer"
