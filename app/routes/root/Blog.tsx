@@ -30,7 +30,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 const BlogContent = ({ loaderData }: Route.ComponentProps) => {
-  const { posts, total, page, user } = loaderData; // I applied this: Destructure user from loaderData
+  const { posts, total, page } = loaderData as {
+    posts: any[];
+    total: number;
+    page: number;
+    user?: any;
+  };
+  const user = (loaderData as any).user; // safely access optional user returned by loader
   const { postDetails } = parseTripData(posts) || {};
 
   const navigate = useNavigate();
