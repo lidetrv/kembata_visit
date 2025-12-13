@@ -36,7 +36,20 @@ export async function createMessage(messageData: MessageData) {
     throw error;
   }
 }
-
+// ~/appwrite/messages.ts - Add this function
+export async function getMessageCount(): Promise<number> {
+  try {
+    const messages = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: appwriteConfig.messageid,
+      queries: [Query.limit(1)], // Just to get total
+    });
+    return messages.total;
+  } catch (error) {
+    console.error("Error counting messages:", error);
+    return 0;
+  }
+}
 export async function getMessages(limit: number = 5, offset: number = 0): Promise<Message[]> {
   try {
     const messages = await tablesDB.listRows({
