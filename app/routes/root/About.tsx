@@ -16,6 +16,7 @@ import { homeSidebarItems } from "~/constants";
 import { cn } from "~/lib/utils";
 import { getUser } from "~/appwrite/auth";
 import type { Route } from "./+types/About"; // You'll need to create this type file
+import ContactForm from "./ContactForm";
 
 // Add loader to fetch real user data
 export const loader = async () => {
@@ -217,7 +218,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
         {/* Map Image and Title - Retained (Slightly Styled) */}
         <div className="max-w-7xl mx-auto text-center mb-12">
           <h2 className="text-4xl font-extrabold text-dark-100 mb-2 font-figtree">
-            Kembata Tembaro Zone
+            Kembata Zone
           </h2>
           <p className="text-lg  mb-8 text-gray-500 font-semibold">
             The heart of cultural pride, resilience, and natural beauty in
@@ -230,7 +231,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
             >
               <img
                 src="/assets/images/Kem_map.jpg"
-                alt="Map of Kembata Tembaro Zone"
+                alt="Map of Kembata Zone"
                 className="w-full max-h-96 object-cover rounded-lg bg-white"
               />
             </a>
@@ -262,9 +263,9 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
             </div>
             <div className="space-y-4 text-left text-gray-700">
               <p>
-                Kembata Tembaro Zone was located in Ethiopia Historically, the
-                Kembata and Tembaro people share common linguistic and cultural
-                roots, belonging to the larger Kambaata language group.
+                Kembata Zone was located in Ethiopia Historically, the Kembata
+                and people share common linguistic and cultural roots, belonging
+                to the larger Kambaata language group.
               </p>
               <p>
                 The people are known for their rich cultural traditions,
@@ -309,86 +310,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
       </section>
 
       {/* Contact Form - Retained */}
-      <section className="py-12 bg-gray-50 flex justify-center">
-        <form
-          action="#"
-          method="post"
-          className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-md border-t-8 border-green-600  m-3"
-        >
-          <div className="mb-6 text-center">
-            <h4 className="text-2xl font-bold text-green-700 mb-3">
-              Get in Touch
-            </h4>
-            <p className="text-gray-700">
-              Contact us <br />
-              <span className="font-semibold">+251 93 137 0119</span> <br />
-              <span className="font-semibold">visitkembata@gmail.com</span>
-              <br />
-              Durame, Kembata, Ethiopia
-            </p>
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="pageName"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Full Name:
-            </label>
-            <input
-              type="text"
-              id="pageName"
-              name="pageName"
-              placeholder="Write Full Name"
-              required
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700  font-semibold mb-2"
-            >
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Write your email"
-              required
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="message"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Message:
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={4}
-              placeholder="Write message here..."
-              required
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-            ></textarea>
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="w-full bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700 transition-all shadow-md"
-          >
-            Send Message
-          </motion.button>
-        </form>
-      </section>
+      <ContactForm className="align-Center" />
 
       <footer className="bg-gray-300 text-white py-10 text-center">
         <div className="relative mx-auto w-full max-w-lg rounded-xl p-4 shadow-sm backdrop-blur-xs">

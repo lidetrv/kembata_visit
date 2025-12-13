@@ -166,7 +166,7 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
       </section>
 
       {/* 3. FILTER COMPONENT */}
-      <section className="py-8 px-6 mt-8 md: mt-0 relative z-10 bg-white">
+      <section className="py-8 px-6 mt-8 md:mt-0 relative z-10 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-wrap gap-4 justify-center">
             {filterCategories.map((category) => (
@@ -392,12 +392,12 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                       </div>
                       <p className="text-xs text-emerald-600 invisible"></p>
                     </div>
-                    <button
-                      type="button"
+                    <a
+                      href="https://www.facebook.com/yichalalhotel"
                       className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
                     >
                       Book Now
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -598,12 +598,12 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                       </div>
                       <p className="text-xs text-emerald-600 invisible"></p>
                     </div>
-                    <button
-                      type="button"
-                      className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
-                    >
-                      Book Now
-                    </button>
+                    <a
+  href="https://www.facebook.com/profile.php?id=61570831670914"
+  className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
+>
+  Book Now
+</a>
                   </div>
                 </div>
               </div>
@@ -804,12 +804,12 @@ const Explore = ({ loaderData }: Route.ComponentProps) => {
                       </div>
                       <p className="text-xs text-emerald-600"></p>
                     </div>
-                    <button
-                      type="button"
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61561547954536"
                       className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:shadow-blue-500/50"
                     >
                       Book Now
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

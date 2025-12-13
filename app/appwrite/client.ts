@@ -7,7 +7,8 @@ export const appwriteConfig={
     databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
     userCollectionId: import.meta.env.VITE_APPWRITE_USERS_COLLECTION_ID,
     tripCollectionId: import.meta.env.VITE_APPWRITE_TRIPS_COLLECTION_ID,
-    bucketId: import.meta.env.VITE_APPWRITE_BUCKET_ID
+    bucketId: import.meta.env.VITE_APPWRITE_BUCKET_ID,
+    messageid: import.meta.env.VITE_APPWRITE_MESSAGE_ID,
 }
 const client = new Client()
      .setEndpoint(appwriteConfig.endpoint)

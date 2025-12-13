@@ -1,3 +1,4 @@
+// dashboard.tsx - Updated
 import { Header, PostCard, StatsCard } from "componentsCreated";
 import { getAllUsers, getUser } from "~/appwrite/auth";
 import type { Route } from "./+types/dashboard";
@@ -6,6 +7,9 @@ import {
   getUsersAndPostStats,
 } from "~/appwrite/dashboard";
 import { getAllPosts } from "~/appwrite/posts";
+import { getMessages } from "~/appwrite/messages";
+
+import MessageSection from "./MessageSection"; // Import MessageSection
 import {
   Category,
   ChartComponent,
@@ -26,18 +30,16 @@ import {
 } from "~/constants";
 
 export const clientLoader = async () => {
-  const [user, dashboardStats, posts, userGrowth, allUsers] = await Promise.all(
-    [
+  const [user, dashboardStats, posts, userGrowth, allUsers, messages] =
+    await Promise.all([
       getUser(),
       getUsersAndPostStats(),
       getAllPosts(4, 0),
       getUserGrowthPerDay(),
       getAllUsers(4, 0),
-    ]
-  );
+      getMessages(5, 0),
+    ]);
 
-  // const postsData = {...posts}
-  // console.log('postsData', postsData);
   const allPosts = posts.allPosts.map(
     ({ $id, postDetails, title, tags, imageUrls }) => {
       let details = {};
@@ -64,18 +66,38 @@ export const clientLoader = async () => {
     count: user.itineraryCount || 0,
     imageUrl: user.imageUrl || "/assets/images/avatar-placeholder.png",
   }));
-  return { user, dashboardStats, allPosts, userGrowth, allUsers: mappedUsers };
+
+  // Map raw message rows to the UI Message shape expected by MessageSection
+  const mappedMessages = (messages || []).map((m: any) => ({
+    id: m.$id ?? m.id,
+    name: m.name ?? m.senderName ?? "",
+    email: m.email ?? m.senderEmail ?? "",
+    message: m.message ?? m.body ?? "",
+    createdAt: m.$createdAt ?? m.createdAt,
+  }));
+
+  return {
+    user,
+    dashboardStats,
+    allPosts,
+    userGrowth,
+    allUsers: mappedUsers,
+    messages: mappedMessages,
+  };
 };
+
 const dashboard = ({ loaderData }: Route.ComponentProps) => {
   const user = loaderData.user as User | null;
-  const { dashboardStats, allPosts, userGrowth, allUsers } = loaderData;
-  console.log("allPosts", allPosts);
+  const { dashboardStats, allPosts, userGrowth, allUsers, messages } =
+    loaderData;
+
   return (
     <main className="dashboard wrapper p-0 m-0">
       <Header
         title={`Welcome ${user?.name ?? "Guest"} 👋`}
         description="Track and Manage created posts in real time."
       />
+
       <section className="flex flex-col gap-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           <StatsCard
@@ -98,6 +120,7 @@ const dashboard = ({ loaderData }: Route.ComponentProps) => {
           />
         </div>
       </section>
+
       <section className="container">
         <h1 className="text-xl font-semibold text-dark-100">Created Posts</h1>
         <div className="trip-grid">
@@ -108,7 +131,7 @@ const dashboard = ({ loaderData }: Route.ComponentProps) => {
                 key={id}
                 id={id.toString()}
                 imageUrl={imageUrls?.[0]}
-                location={location || "No loaction"} //use actual location field}
+                location={location || "No location"}
                 tags={tags}
                 name={title}
                 price={tags?.[0]}
@@ -116,6 +139,7 @@ const dashboard = ({ loaderData }: Route.ComponentProps) => {
             ))}
         </div>
       </section>
+
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <ChartComponent
           id="chart-1"
@@ -155,6 +179,10 @@ const dashboard = ({ loaderData }: Route.ComponentProps) => {
           </SeriesCollectionDirective>
         </ChartComponent>
       </section>
+
+      {/* Use MessageSection component */}
+      <MessageSection messages={messages} />
+
       <section className="user-trip wrapper"></section>
     </main>
   );

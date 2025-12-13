@@ -11,7 +11,7 @@ interface Testimonial {
 // Mock testimonial data
 const testimonials: Testimonial[] = [
   {
-    text: "Intuitive interface. Lightning-fast performance. Reliable security. Perfect for any business.",
+    text: "Intuitive interface. Lightning-fast performance. Reliable security.",
     avatar:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=160&h=160&auto=format&fit=crop",
     name: "Michael Thompson",
@@ -62,7 +62,7 @@ export default function TestimonialCarousel() {
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
-      <div className="text-center mb-12">
+      <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
           What Our Visitors Say
         </h2>
